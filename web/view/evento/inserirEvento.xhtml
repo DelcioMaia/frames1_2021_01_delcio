@@ -6,10 +6,9 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Cadastrar Campus</title>
+        <title>Cadastrar Evento</title>
         <h:outputStylesheet name="bootstrap-4.1/css/bootstrap.min.css"/>
         <h:outputScript name="jquery/jquery-3.3.1.slim.min.js"/>
         <h:outputScript name="jquery/jquery.min.js"/>
@@ -29,9 +28,9 @@ and open the template in the editor.
                     <h:link class="nav-link active" value="Principal" outcome="/index.xhtml" />
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Campus</a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Evento</a>
                     <div class="dropdown-menu">
-                        <h:link class="dropdown-item" value="Cadastrar Campus" outcome="/view/campus/inserirCampus.xhtml" />
+                        <h:link class="dropdown-item" value="Cadastrar Evento" outcome="/view/evento/inserirEvento.xhtml" />
                     </div>
                 </li>
                 <li class="nav-item">
@@ -46,31 +45,31 @@ and open the template in the editor.
             </ul>
         </div> 
         <div class="container">
-            <h1>Cadastrar Campus</h1>
+            <h1>Cadastrar Evento</h1>
             <h:form class="novo">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="campusNome">Nome do Campus</label> 
-                        <h:inputText class="form-control" id="nomeCampus" value="#{campusController.campusModel.campusNome}"/>
+                        <label for="eventoNome">Nome do Evento</label> 
+                        <h:inputText class="form-control" id="nomeEvento" value="#{eventoController.eventoModel.eventoNome}"/>
                     </div>
                 </div>
+                
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="idEstadoCampus">Estado</label>
-                        <h:selectOneMenu class="form-control" id="idEstadoCampus" value="#{campusController.campusModel.estado.idEstado}">
-                            <f:ajax render="idCidadeCampus" event="change" listener="#{campusController.onChangeEstado()}"/>
-                            <f:selectItems value="#{campusController.estados}"/>                    
-                        </h:selectOneMenu>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="idCidadeCampus">Cidade</label>
-                        <h:selectOneMenu class="form-control" id="idCidadeCampus" value="#{campusController.campusModel.cidade.idCidade}"> 
-                            <f:selectItems value="#{campusController.listaDeCidades}" />
-                        </h:selectOneMenu>
+                        <label for="dataInicioEvento">Data De Inicio Do Evento</label>
+                        <h:inputText class="form-control" id="dataInicioEvento" value="#{eventoController.eventoModel.dataInicioEvento}"/>
                     </div>
                 </div>
-                <h:commandButton class="btn btn-primary" value="salvar" action="#{campusController.salvar()}"/>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="dataFimEvento">Data De Fim Do Evento</label>
+                        <h:inputText class="form-control" id="dataFimEvento" value="#{eventoController.eventoModel.dataFimEvento}"/>                          
+                    </div>
+                </div>
+                <h:commandButton class="btn btn-primary" value="salvar" action="#{eventoController.salvar()}"/>
             </h:form>
         </div>
     </h:body>
 </html>
+

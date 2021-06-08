@@ -9,62 +9,130 @@ package edu.eventos.ifms.controller;
  *
  * @author delci
  */
+import edu.eventos.ifms.model.campusModel;
+import edu.eventos.ifms.model.cidadeModel;
+import edu.eventos.ifms.model.estadoModel;
+import edu.eventos.ifms.repository.campusRepository;
+import edu.eventos.ifms.repository.cidadeRepository;
+import edu.eventos.ifms.repository.estadoRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 @ManagedBean
+@ViewScoped
 public class campusController {
-    private String campusNome;
-    private int campusCidadeId;
-    private int campusEstadoId;
- 
+    private campusModel campusModel;
+    private campusRepository campusRepository;
+    private estadoRepository estadoRepository;
+    private cidadeRepository cidadeRepository;
+    private List<SelectItem> listaDeCidades;
+    
     public campusController(){
-        this.campusNome = "";
-        this.campusCidadeId = 0;
-        this.campusEstadoId = 0;
+        this.campusModel = new campusModel();
+        this.campusRepository = new campusRepository();
+        this.estadoRepository = new estadoRepository();
+        this.cidadeRepository = new cidadeRepository();
+        this.listaDeCidades = this.getCidades(1);
     }
     
     public void salvar(){
-        System.out.println("Campus nome: "+this.campusNome+ " - Estado e Cidade Id´s: " + this.campusCidadeId +" - " + this.campusEstadoId);
+        this.campusRepository.salvar(this.campusModel);
     }
     
     public List<SelectItem> getEstados() {
         ArrayList<SelectItem> itens = new ArrayList<SelectItem>();
-        itens.add(new SelectItem(1, "São Paulo"));
-        itens.add(new SelectItem(2, "Minas Gerais"));
-        itens.add(new SelectItem(3, "Paraná"));
+        List<estadoModel> listaDeEstados = this.estadoRepository.buscar();
+            for(estadoModel estado : listaDeEstados){
+                itens.add(new SelectItem(estado.getIdEstado(), estado.getEstadoNome()));
+            }
         return itens;
     }
+    
+    public void onChangeEstado(){
+        this.listaDeCidades = this.getCidades(this.campusModel.getEstado().getIdEstado());
+    }
  
-    public List<SelectItem> getCidades() {
+    public List<SelectItem> getCidades(long idEstado) {
         ArrayList<SelectItem> itens = new ArrayList<SelectItem>();
-        itens.add(new SelectItem(1, "Cidade 1"));
-        itens.add(new SelectItem(2, "Cidade 2"));
-        itens.add(new SelectItem(3, "Cidade 3"));
-    return itens;
+        List<cidadeModel> listaDeCidades = this.cidadeRepository.buscar(idEstado);
+            for(cidadeModel cidade : listaDeCidades){
+                itens.add(new SelectItem(cidade.getIdCidade(), cidade.getCidadeNome()));
+            }
+        return itens;
     } 
-    
-    public String getCampusNome() {
-        return campusNome;
+
+    /**
+     * @return the campusModel
+     */
+    public campusModel getCampusModel() {
+        return campusModel;
     }
-    public void setCampusNome(String campusNome) {
-        this.campusNome = campusNome;
+
+    /**
+     * @param campusModel the campusModel to set
+     */
+    public void setCampusModel(campusModel campusModel) {
+        this.campusModel = campusModel;
     }
-    
-    public int getCampusCidadeId() {
-        return campusCidadeId;
+
+    /**
+     * @return the campusRepository
+     */
+    public campusRepository getCampusRepository() {
+        return campusRepository;
     }
-    public void setCampusCidadeId(int campusCidadeId) {
-        this.campusCidadeId = campusCidadeId;
-     }
+
+    /**
+     * @param campusRepository the campusRepository to set
+     */
+    public void setCampusRepository(campusRepository campusRepository) {
+        this.campusRepository = campusRepository;
+    }
+
+    /**
+     * @return the estadoRepository
+     */
+    public estadoRepository getEstadoRepository() {
+        return estadoRepository;
+    }
+
+    /**
+     * @param estadoRepository the estadoRepository to set
+     */
+    public void setEstadoRepository(estadoRepository estadoRepository) {
+        this.estadoRepository = estadoRepository;
+    }
+
+    /**
+     * @return the cidadeRepository
+     */
+    public cidadeRepository getCidadeRepository() {
+        return cidadeRepository;
+    }
+
+    /**
+     * @param cidadeRepository the cidadeRepository to set
+     */
+    public void setCidadeRepository(cidadeRepository cidadeRepository) {
+        this.cidadeRepository = cidadeRepository;
+    }
+
+    /**
+     * @return the listaDeCidades
+     */
+    public List<SelectItem> getListaDeCidades() {
+        return listaDeCidades;
+    }
+
+    /**
+     * @param listaDeCidades the listaDeCidades to set
+     */
+    public void setListaDeCidades(List<SelectItem> listaDeCidades) {
+        this.listaDeCidades = listaDeCidades;
+    }
+
     
-    public int getCampusEstadoId() {
-        return campusEstadoId;
-     }
-  
-    public void setCampusEstadoId(int campusEstadoId) {
-        this.campusEstadoId = campusEstadoId;
-    } 
 }
