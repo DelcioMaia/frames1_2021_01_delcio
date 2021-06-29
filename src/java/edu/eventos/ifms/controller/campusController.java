@@ -7,7 +7,7 @@ package edu.eventos.ifms.controller;
 
 /**
  *
- * @author delci
+ * @author delci 2w
  */
 import edu.eventos.ifms.model.campusModel;
 import edu.eventos.ifms.model.cidadeModel;
@@ -29,6 +29,7 @@ public class campusController {
     private estadoRepository estadoRepository;
     private cidadeRepository cidadeRepository;
     private List<SelectItem> listaDeCidades;
+    private List listaDeCampus;
     
     public campusController(){
         this.campusModel = new campusModel();
@@ -62,7 +63,29 @@ public class campusController {
                 itens.add(new SelectItem(cidade.getIdCidade(), cidade.getCidadeNome()));
             }
         return itens;
-    } 
+    }
+    
+    public void buscarTodosCampus(){
+        this.setListaDeCampus(this.campusRepository.buscarTodos());
+    }
+    
+    public void remover(long idCampus){
+        this.campusRepository.remover(idCampus);
+    }
+    
+    public String editar(long idCampus){
+        return "editarCampus.xhtml?faces-redirect=true&idCampus=" + idCampus;
+    }
+    
+    public void getCampus(){
+        this.campusModel = this.campusRepository.buscarPorId(this.campusModel.getIdCampus());
+        this.listaDeCidades = this.getCidades(this.campusModel.getEstado().getIdEstado());
+    }
+    
+    public String salvarEdicao(){
+        this.campusRepository.salvar(this.campusModel);
+        return "buscarCampus.xhtml?faces-redirect=true";
+    }
 
     /**
      * @return the campusModel
@@ -134,5 +157,18 @@ public class campusController {
         this.listaDeCidades = listaDeCidades;
     }
 
-    
+    /**
+     * @return the listaDeCampus
+     */
+    public List getListaDeCampus() {
+        return listaDeCampus;
+    }
+
+    /**
+     * @param listaDeCampus the listaDeCampus to set
+     */
+    public void setListaDeCampus(List listaDeCampus) {
+        this.listaDeCampus = listaDeCampus;
+    }
+   
 }

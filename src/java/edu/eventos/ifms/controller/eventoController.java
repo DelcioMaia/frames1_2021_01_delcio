@@ -11,6 +11,7 @@ package edu.eventos.ifms.controller;
  */
 import edu.eventos.ifms.model.eventoModel;
 import edu.eventos.ifms.repository.eventoRepository;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -19,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 public class eventoController {
     private eventoModel eventoModel;
     private eventoRepository eventoRepository;
+    private List listaDeEventos;
  
     public eventoController(){
         this.eventoModel = new eventoModel();
@@ -26,9 +28,30 @@ public class eventoController {
     }
     
     public void salvar(){
-        this.getEventoRepository().salvar(this.getEventoModel());
+        this.eventoRepository.salvar(this.eventoModel);
     }
-
+    
+    public void buscarTodosEvento(){
+        this.setListaDeEventos(this.eventoRepository.buscarTodos());
+    }
+    
+    public void remover(long idEvento){
+        this.eventoRepository.remover(idEvento);
+    }
+    
+    public String editar(long idEvento){
+        return "editarEvento.xhtml?faces-redirect=true&idEvento=" + idEvento;
+    }
+    
+    public void getEvento(){
+        this.eventoModel = this.eventoRepository.buscarPorId(this.eventoModel.getIdEvento());
+    }
+    
+    public String salvarEdicao(){
+        this.eventoRepository.salvar(this.eventoModel);
+        return "buscarEvento.xhtml?faces-redirect=true";
+    }
+    
     /**
      * @return the eventoModel
      */
@@ -56,5 +79,18 @@ public class eventoController {
     public void setEventoRepository(eventoRepository eventoRepository) {
         this.eventoRepository = eventoRepository;
     }
-    
+
+    /**
+     * @return the listaDeEventos
+     */
+    public List getListaDeEventos() {
+        return listaDeEventos;
+    }
+
+    /**
+     * @param listaDeEventos the listaDeEventos to set
+     */
+    public void setListaDeEventos(List listaDeEventos) {
+        this.listaDeEventos = listaDeEventos;
+    } 
 }

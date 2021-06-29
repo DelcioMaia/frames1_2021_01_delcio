@@ -54,5 +54,4 @@ public class areaModel implements Serializable{
     public void setAreaNome(String areaNome) {
         this.areaNome = areaNome;
     }
-
 }

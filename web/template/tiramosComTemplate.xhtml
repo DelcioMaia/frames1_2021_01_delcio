@@ -1,14 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Cadastrar Evento</title>
+        <title>Frames 1 - Principal</title>
         <h:outputStylesheet name="bootstrap-4.1/css/bootstrap.min.css"/>
         <h:outputScript name="jquery/jquery-3.3.1.slim.min.js"/>
         <h:outputScript name="jquery/jquery.min.js"/>
@@ -28,10 +22,21 @@ and open the template in the editor.
                     <h:link class="nav-link active" value="Principal" outcome="/index.xhtml" />
                 </li>
                 <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Campus</a>
+                    <div class="dropdown-menu">
+                        <h:link class="dropdown-item" value="Cadastrar Campus" outcome="/view/campus/inserirCampus.xhtml" />
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Área</a>
+                    <div class="dropdown-menu">
+                        <h:link class="dropdown-item" value="Cadastrar Área" outcome="/view/area/inserirArea.xhtml" />
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Evento</a>
                     <div class="dropdown-menu">
                         <h:link class="dropdown-item" value="Cadastrar Evento" outcome="/view/evento/inserirEvento.xhtml" />
-                        <h:link class="dropdown-item" value="Buscar Evento" outcome="/view/evento/buscarEvento.xhtml" />
                     </div>
                 </li>
                 <li class="nav-item">
@@ -44,33 +49,4 @@ and open the template in the editor.
                     <a class="btn btn-outline-primary" id="linkLogar" href="">Logar</a>
                 </li>
             </ul>
-        </div> 
-        <div class="container">
-            <h1>Cadastrar Evento</h1>
-            <h:form class="novo">
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="eventoNome">Nome do Evento</label> 
-                        <h:inputText class="form-control" id="nomeEvento" value="#{eventoController.eventoModel.eventoNome}"/>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="dataInicioEvento">Data De Inicio Do Evento</label>
-                        <h:inputText class="form-control" id="dataInicioEvento" value="#{eventoController.eventoModel.dataInicioEvento}"/>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="dataFimEvento">Data De Fim Do Evento</label>
-                        <h:inputText class="form-control" id="dataFimEvento" value="#{eventoController.eventoModel.dataFimEvento}"/>                          
-                    </div>
-                </div>
-                <h:commandButton class="btn btn-primary" value="salvar" action="#{eventoController.salvar()}"/>
-            </h:form>
         </div>
-    </h:body>
-</html>
-

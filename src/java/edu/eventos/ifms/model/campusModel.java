@@ -42,9 +42,9 @@ public class campusModel implements Serializable {
     @JoinColumn(name = "idEstado", insertable = true, updatable = true)
     private estadoModel estado;
     
-    public void campusModel() {
-        this.setCidade(new cidadeModel());
-        this.setEstado(new estadoModel());
+    public campusModel(){
+        this.cidade = new cidadeModel();
+        this.estado = new estadoModel();
     }
 
     /**
@@ -101,7 +101,6 @@ public class campusModel implements Serializable {
      */
     public void setEstado(estadoModel estado) {
         this.estado = estado;
-    }
-            
+    }           
     
 }

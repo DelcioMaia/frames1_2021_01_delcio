@@ -6,9 +6,10 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Cadastrar Evento</title>
+        <title>Editar Campus</title>
         <h:outputStylesheet name="bootstrap-4.1/css/bootstrap.min.css"/>
         <h:outputScript name="jquery/jquery-3.3.1.slim.min.js"/>
         <h:outputScript name="jquery/jquery.min.js"/>
@@ -16,6 +17,10 @@ and open the template in the editor.
         <h:outputScript name="bootstrap-4.1/js/bootstrap.min.js"/>
     </h:head>
     <h:body>
+        <f:metadata>
+            <f:viewParam value="#{campusController.campusModel.idCampus}" name="idCampus"/>
+            <f:viewAction action="#{campusController.getCampus()}"/>
+        </f:metadata>    
         <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
             <h5 class="my-0 mr-md-auto font-weight-normal">
                 <h:graphicImage library="imagens" width="10%" height="10%" name="marcaifms.png" alt="logotipo do IFMS"/>
@@ -26,13 +31,6 @@ and open the template in the editor.
             <ul class="nav">
                 <li class="nav-item">
                     <h:link class="nav-link active" value="Principal" outcome="/index.xhtml" />
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Evento</a>
-                    <div class="dropdown-menu">
-                        <h:link class="dropdown-item" value="Cadastrar Evento" outcome="/view/evento/inserirEvento.xhtml" />
-                        <h:link class="dropdown-item" value="Buscar Evento" outcome="/view/evento/buscarEvento.xhtml" />
-                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" id="nomeUsuario" href="#"></a>
@@ -46,31 +44,39 @@ and open the template in the editor.
             </ul>
         </div> 
         <div class="container">
-            <h1>Cadastrar Evento</h1>
+            <h1>Editar Campus</h1>
             <h:form class="novo">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="eventoNome">Nome do Evento</label> 
-                        <h:inputText class="form-control" id="nomeEvento" value="#{eventoController.eventoModel.eventoNome}"/>
+                        <label for="campusNome">Nome do Campus</label> 
+                        <h:inputText class="form-control" id="nomeCampus" value="#{campusController.campusModel.campusNome}"/>
                     </div>
                 </div>
-                
                 <div class="form-row">
+                    <h:inputHidden id="idCampus" value="#{campusController.campusModel.idCampus}"/>
                     <div class="form-group col-md-6">
-                        <label for="dataInicioEvento">Data De Inicio Do Evento</label>
-                        <h:inputText class="form-control" id="dataInicioEvento" value="#{eventoController.eventoModel.dataInicioEvento}"/>
+                        <label for="idEstadoCampus">Estado</label>
+                        <h:selectOneMenu class="form-control" id="idEstadoCampus" value="#{campusController.campusModel.estado.idEstado}">
+                            <f:ajax render="idCidadeCampus" event="change" listener="#{campusController.onChangeEstado()}"/>
+                            <f:selectItems value="#{campusController.estados}"/>                    
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="idCidadeCampus">Cidade</label>
+                        <h:selectOneMenu class="form-control" id="idCidadeCampus" value="#{campusController.campusModel.cidade.idCidade}"> 
+                            <f:selectItems value="#{campusController.listaDeCidades}" />
+                        </h:selectOneMenu>
                     </div>
                 </div>
-                
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="dataFimEvento">Data De Fim Do Evento</label>
-                        <h:inputText class="form-control" id="dataFimEvento" value="#{eventoController.eventoModel.dataFimEvento}"/>                          
+                    <div class="form-group col-md-1">
+                        <h:commandButton class="btn bth-secondary" value="voltar" action="buscarCampus.xhtml"/>
                     </div>
-                </div>
-                <h:commandButton class="btn btn-primary" value="salvar" action="#{eventoController.salvar()}"/>
+                    <div class="form-group col-md-3">
+                        <h:commandButton class="btn btn-primary" value="salvar alterações" action="#{campusController.salvarEdicao()}"/>
+                    </div>
+                </div>                           
             </h:form>
         </div>
     </h:body>
 </html>
-
