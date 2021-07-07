@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
-        <title>Cadastrar Evento</title>
+        <title>Cadastrar Servidor</title>
         <h:outputStylesheet name="bootstrap-4.1/css/bootstrap.min.css"/>
         <h:outputScript name="jquery/jquery-3.3.1.slim.min.js"/>
         <h:outputScript name="jquery/jquery.min.js"/>
@@ -30,10 +30,10 @@ and open the template in the editor.
                     <h:link class="nav-link active" value="Principal" outcome="/index.xhtml" />
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Evento</a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Servidor</a>
                     <div class="dropdown-menu">
-                        <h:link class="dropdown-item" value="Cadastrar Evento" outcome="/view/evento/inserirEvento.xhtml" />
-                        <h:link class="dropdown-item" value="Buscar Evento" outcome="/view/evento/buscarEvento.xhtml" />
+                        <h:link class="dropdown-item" value="Cadastrar Servidor" outcome="/view/servidor/inserirServidor.xhtml" />
+                        <h:link class="dropdown-item" value="Buscar Servidor" outcome="/view/servidor/buscarServidor.xhtml" />
                     </div>
                 </li>
                 <li class="nav-item">
@@ -48,29 +48,49 @@ and open the template in the editor.
             </ul>
         </div> 
         <div class="container">
-            <h1>Cadastrar Evento</h1>
+            <h1>Cadastrar Servidor</h1>
             <h:form class="novo">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="eventoNome">Nome do Evento</label> 
-                        <h:inputText class="form-control" id="nomeEvento" value="#{eventoController.eventoModel.eventoNome}"/>
+                        <label for="nomeServidor">Nome do Servidor</label> 
+                        <h:inputText class="form-control" id="nomeServidor" value="#{servidorController.servidorModel.pessoaNome}"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="dataInicioEvento">Data Inicio Evento</label>
-                        <h:inputText p:type="date" class="form-control" id="dataInicioEvento" value="#{eventoController.eventoModel.dataInicioEvento}">
-                            <f:convertDateTime dateStyle="short" pattern="yyyy-MM-dd"/>
-                        </h:inputText>
+                        <label for="cpf">CPF</label>
+                        <h:inputText class="form-control" id="cpf" value="#{servidorController.servidorModel.CPF}"/>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="dataFimEvento">Data Fim Evento</label>
-                        <h:inputText p:type="date" class="form-control" id="dataFimEvento" value="#{eventoController.eventoModel.dataFimEvento}">
+                        <label for="telefone">Telefone</label>
+                        <h:inputText class="form-control" id="telefone" value="#{servidorController.servidorModel.telefone}"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="dataIngresso">Data Ingresso</label>
+                        <h:inputText p:type="date" class="form-control" id="dataIngresso" value="#{servidorController.servidorModel.dataIngresso}">
                             <f:convertDateTime dateStyle="short" pattern="yyyy-MM-dd"/>
                         </h:inputText>
                     </div>
+                </div>    
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="siape">SIAPE</label>
+                        <h:inputText class="form-control" id="siape" value="#{servidorController.servidorModel.SIAPE}"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="cargo">Cargo</label>
+                        <h:inputText class="form-control" id="cargo" value="#{servidorController.servidorModel.cargo}"/>
+                    </div>
                 </div>
-                <h:commandButton class="btn btn-primary" value="salvar" action="#{eventoController.salvar()}"/>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="idArea">Área</label>
+                        <h:selectOneMenu class="form-control" id="idArea" value="#{servidorController.servidorModel.area.idArea}">
+                            <f:selectItems value="#{servidorController.areas}"/>
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <h:commandButton class="btn btn-primary" value="salvar" action="#{servidorController.salvar()}"/>
             </h:form>
         </div>
     </h:body>

@@ -6,11 +6,14 @@
 package edu.eventos.ifms.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -25,15 +28,12 @@ public class eventoModel implements Serializable {
     
     @Column(nullable = false, length = 80)
     private String eventoNome;
-    @Column(nullable = false, length = 80)
-    private String dataInicioEvento;
-    @Column(nullable = false, length = 80)
-    private String dataFimEvento;
     
-    public void eventoModel() {
-        setDataInicioEvento("0");
-        setDataFimEvento("0");
-    }  
+    @Temporal(TemporalType.DATE)
+        private Date dataInicioEvento;
+
+   @Temporal(TemporalType.DATE)
+        private Date dataFimEvento;
 
     /**
      * @return the idEvento
@@ -66,28 +66,29 @@ public class eventoModel implements Serializable {
     /**
      * @return the dataInicioEvento
      */
-    public String getDataInicioEvento() {
+    public Date getDataInicioEvento() {
         return dataInicioEvento;
     }
 
     /**
      * @param dataInicioEvento the dataInicioEvento to set
      */
-    public void setDataInicioEvento(String dataInicioEvento) {
+    public void setDataInicioEvento(Date dataInicioEvento) {
         this.dataInicioEvento = dataInicioEvento;
     }
 
     /**
      * @return the dataFimEvento
      */
-    public String getDataFimEvento() {
+    public Date getDataFimEvento() {
         return dataFimEvento;
     }
 
     /**
      * @param dataFimEvento the dataFimEvento to set
      */
-    public void setDataFimEvento(String dataFimEvento) {
+    public void setDataFimEvento(Date dataFimEvento) {
         this.dataFimEvento = dataFimEvento;
-    }    
+    }
+
 }

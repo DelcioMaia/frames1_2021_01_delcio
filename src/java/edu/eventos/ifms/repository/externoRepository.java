@@ -5,10 +5,10 @@
  */
 package edu.eventos.ifms.repository;
 
-import edu.eventos.ifms.model.campusModel;
+import edu.eventos.ifms.model.externoModel;
+import edu.eventos.ifms.model.servidorModel;
 import edu.eventos.ifms.util.hibernateConector;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -16,62 +16,61 @@ import org.hibernate.Transaction;
  *
  * @author delci
  */
-public class campusRepository {
+public class externoRepository {
     private Session session;
     private Transaction transaction;
     
-    public void salvar(campusModel campus){
+    public void salvar(externoModel externo){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        this.session.saveOrUpdate(campus);
+        this.session.saveOrUpdate(externo);
         
         this.transaction.commit();
         this.session.close();
     }
     
-    public List<campusModel> buscar(){
+    public List<externoModel> buscarTodos(){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        List<campusModel>listaDeCampus = this.session.createQuery("from campusModel").list();
+        List<externoModel> listaDeExternos = this.session.createQuery("from externoModel").list();
         
         this.transaction.commit();
         this.session.close();
-        return listaDeCampus;
+        return listaDeExternos;
     }
     
-    public List<campusModel> buscarTodos(){
+    public List<externoModel> buscar(){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        List<campusModel> listaDeCampus = this.session.createQuery("from campusModel").list();
+        List<externoModel> listaDeExternos = this.session.createQuery("from externoModel").list();
         
         this.transaction.commit();
         this.session.close();
-        return listaDeCampus;
+        return listaDeExternos;
     }
     
-    public void remover(long idCampus){
+    public void remover(long idExterno){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        campusModel campus = (campusModel) this.session.get(campusModel.class, idCampus);
-        this.session.delete(campus);
+        externoModel externo = (externoModel) this.session.get(externoModel.class, idExterno);
+        this.session.delete(externo);
         
         this.transaction.commit();
         this.session.close();
     }
     
-    public campusModel buscarPorId(long idCampus){
+    public externoModel buscarPorId(long idExterno){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        campusModel campus = (campusModel) this.session.get(campusModel.class, idCampus);
-        Hibernate.initialize(campus.getServidores());
+        externoModel externo = (externoModel) this.session.get(externoModel.class, idExterno);
         
         this.transaction.commit();
         this.session.close();
-        return campus;
+        return externo;
     }
 }

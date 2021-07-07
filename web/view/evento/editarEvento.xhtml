@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>Editar Evento</title>
         <h:outputStylesheet name="bootstrap-4.1/css/bootstrap.min.css"/>
@@ -49,30 +50,25 @@ and open the template in the editor.
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="eventoNome">Nome do Evento</label> 
-                        <h:inputText class="form-control" id="nomeCampus" value="#{eventoController.eventoModel.eventoNome}"/>
+                        <h:inputText class="form-control" id="nomeEvento" value="#{eventoController.eventoModel.eventoNome}"/>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="dataInicioEvento">Data Inicio</label> 
-                        <h:inputText class="form-control" id="eventoDataInicio" value="#{eventoController.eventoModel.dataInicioEvento}"/>
+                    <div class="form-group col-md-4">
+                        <label for="dataInicioEvento">Data Inicio Evento</label>
+                        <h:inputText p:type="date" class="form-control" id="dataInicioEvento" value="#{eventoController.eventoModel.dataInicioEvento}">
+                            <f:convertDateTime dateStyle="short" pattern="yyyy-MM-dd"/>
+                        </h:inputText>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="dataFimEvento">Data Fim Evento</label>
+                        <h:inputText p:type="date" class="form-control" id="dataFimEvento" value="#{eventoController.eventoModel.dataFimEvento}">
+                            <f:convertDateTime dateStyle="short" pattern="yyyy-MM-dd"/>
+                        </h:inputText>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="dataFimEvento">Data Fim</label> 
-                        <h:inputText class="form-control" id="eventoDataFim" value="#{eventoController.eventoModel.dataFimEvento}"/>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-1">
-                        <h:commandButton class="btn bth-secondary" value="voltar" action="buscarEvento.xhtml"/>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <h:commandButton class="btn btn-primary" value="salvar alterações" action="#{eventoController.salvarEdicao()}"/>
-                    </div>
-                </div>                           
+                <h:commandButton class="btn btn-primary" value="salvar alterações" action="#{eventoController.salvarEdicao()}"/>
             </h:form>
-        </div>
+        </div>                         
     </h:body>
 </html>

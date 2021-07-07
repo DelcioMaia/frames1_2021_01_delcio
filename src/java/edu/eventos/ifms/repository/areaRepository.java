@@ -19,6 +19,17 @@ public class areaRepository {
     private Session session;
     private Transaction transaction;
     
+    public List<areaModel> buscar(){
+        this.setSession(hibernateConector.getSessionFactory().openSession());
+        this.setTransaction(getSession().beginTransaction());
+        
+        List<areaModel>listaDeAreas = this.getSession().createQuery("from areaModel").list();
+        
+        this.getTransaction().commit();
+        this.getSession().close();
+        return listaDeAreas;
+    }
+    
     public void salvar(areaModel area){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
@@ -61,5 +72,27 @@ public class areaRepository {
         this.session.close();
         return area;
     }
-    //final da modificação 27-06
+ 
+    public Session getSession() {
+        return session;
+    }
+
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    /**
+     * @return the transaction
+     */
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    /**
+     * @param transaction the transaction to set
+     */
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
 }

@@ -47,10 +47,16 @@ Contributor(s):
     <property name="hibernate.connection.username">nbuser</property>
     <property name="hibernate.connection.password">nbuser</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="edu.eventos.ifms.model.campusModel"/>
     <mapping class="edu.eventos.ifms.model.areaModel"/>
-    <mapping class="edu.eventos.ifms.model.eventoModel"/>
     <mapping class="edu.eventos.ifms.model.estadoModel"/>
     <mapping class="edu.eventos.ifms.model.cidadeModel"/>
+    <mapping class="edu.eventos.ifms.model.campusModel"/>
+    <mapping class="edu.eventos.ifms.model.pessoaModel"/>
+    <mapping class="edu.eventos.ifms.model.pessoaInternaModel"/>
+    <mapping class="edu.eventos.ifms.model.servidorModel"/>
+    <mapping class="edu.eventos.ifms.model.cursoModel"/>
+    <mapping class="edu.eventos.ifms.model.alunoModel"/>
+    <mapping class="edu.eventos.ifms.model.externoModel"/>
+    <mapping class="edu.eventos.ifms.model.eventoModel"/>
   </session-factory>
 </hibernate-configuration>

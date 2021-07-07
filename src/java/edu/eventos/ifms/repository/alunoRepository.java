@@ -5,10 +5,10 @@
  */
 package edu.eventos.ifms.repository;
 
-import edu.eventos.ifms.model.campusModel;
+import edu.eventos.ifms.model.alunoModel;
+import edu.eventos.ifms.model.servidorModel;
 import edu.eventos.ifms.util.hibernateConector;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -16,62 +16,50 @@ import org.hibernate.Transaction;
  *
  * @author delci
  */
-public class campusRepository {
+public class alunoRepository {
     private Session session;
     private Transaction transaction;
     
-    public void salvar(campusModel campus){
+    public void salvar(alunoModel aluno){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        this.session.saveOrUpdate(campus);
+        this.session.saveOrUpdate(aluno);
         
         this.transaction.commit();
         this.session.close();
     }
     
-    public List<campusModel> buscar(){
+    public List<alunoModel> buscarTodos(){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        List<campusModel>listaDeCampus = this.session.createQuery("from campusModel").list();
+        List<alunoModel> listaDeAlunos = this.session.createQuery("from alunoModel").list();
         
         this.transaction.commit();
         this.session.close();
-        return listaDeCampus;
+        return listaDeAlunos;
     }
     
-    public List<campusModel> buscarTodos(){
+    public void remover(long idAluno){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        List<campusModel> listaDeCampus = this.session.createQuery("from campusModel").list();
-        
-        this.transaction.commit();
-        this.session.close();
-        return listaDeCampus;
-    }
-    
-    public void remover(long idCampus){
-        this.session = hibernateConector.getSessionFactory().openSession();
-        this.transaction = session.beginTransaction();
-        
-        campusModel campus = (campusModel) this.session.get(campusModel.class, idCampus);
-        this.session.delete(campus);
+        alunoModel aluno = (alunoModel) this.session.get(alunoModel.class, idAluno);
+        this.session.delete(aluno);
         
         this.transaction.commit();
         this.session.close();
     }
     
-    public campusModel buscarPorId(long idCampus){
+    public alunoModel buscarPorId(long idAluno){
         this.session = hibernateConector.getSessionFactory().openSession();
         this.transaction = session.beginTransaction();
         
-        campusModel campus = (campusModel) this.session.get(campusModel.class, idCampus);
-        Hibernate.initialize(campus.getServidores());
+        alunoModel aluno = (alunoModel) this.session.get(alunoModel.class, idAluno);
         
         this.transaction.commit();
         this.session.close();
-        return campus;
+        return aluno;
     }
 }
